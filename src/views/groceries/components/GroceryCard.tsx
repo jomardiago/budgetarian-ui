@@ -24,7 +24,7 @@ const GroceryCard = (props: GroceryCardProps) => {
   return (
     <div className="shadow-md p-2 flex flex-col gap-2 bg-blue-100">
       <span className="flex justify-between cursor-pointer font-semibold" onClick={() => setIsVisible((visible) => !visible)}>
-        <p>{grocery.name}</p>
+        <p>{grocery.name} ({grocery.quantity})</p>
         <p>Total Price: {grocery.quantity * grocery.price}</p>
       </span>
       {isVisible ? (

@@ -53,7 +53,7 @@ const GroceryForm = (props: GroceryFormProps) => {
   };
 
   return (
-    <div>
+    <div className="shadow-md p-4 rounded-md">
       <form className="w-full flex flex-col gap-2" onSubmit={handleOnSubmit}>
         <div className={formFieldClass}>
           <label htmlFor="name">Name</label>
@@ -79,29 +79,31 @@ const GroceryForm = (props: GroceryFormProps) => {
             value={grocery.description}
           />
         </div>
-        <div className={formFieldClass}>
-          <label htmlFor="price">Price</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            placeholder="Enter product price"
-            className={formFieldInputClass}
-            onChange={handleOnChange}
-            value={grocery.price}
-          />
-        </div>
-        <div className={formFieldClass}>
-          <label htmlFor="quantity">Quantity</label>
-          <input
-            type="number"
-            id="quantity"
-            name="quantity"
-            placeholder="Enter product quantity"
-            className={formFieldInputClass}
-            onChange={handleOnChange}
-            value={grocery.quantity}
-          />
+        <div className="flex gap-4">
+          <div className={formFieldClass}>
+            <label htmlFor="price">Price</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              placeholder="Enter product price"
+              className={formFieldInputClass}
+              onChange={handleOnChange}
+              value={grocery.price}
+            />
+          </div>
+          <div className={formFieldClass}>
+            <label htmlFor="quantity">Quantity</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              placeholder="Enter product quantity"
+              className={formFieldInputClass}
+              onChange={handleOnChange}
+              value={grocery.quantity}
+            />
+          </div>
         </div>
         <div>
           <button type="submit" className="px-4 py-1 bg-blue-500 text-white rounded-sm">
