@@ -10,7 +10,6 @@ const initialGroceryValue = {
 };
 
 export type GroceriesContextValue = {
-  total: number;
   isEdit: boolean;
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
   grocery: Grocery;
@@ -20,7 +19,6 @@ export type GroceriesContextValue = {
 };
 
 export const GroceriesContext = createContext<GroceriesContextValue>({
-  total: 0,
   isEdit: false,
   setIsEdit: () => {},
   grocery: initialGroceryValue,
@@ -38,12 +36,10 @@ const GroceriesContextProvider = (props: GroceriesContextProviderProps) => {
   const [grocery, setGrocery] = useState<Grocery>(initialGroceryValue);
   const [groceries, setGroceries] = useState<Grocery[]>([]);
   const [isEdit, setIsEdit] = useState(false);
-  const total = groceries.reduce((total, grocery) => total + grocery.price * grocery.quantity, 0);
 
   return (
     <GroceriesContext.Provider
       value={{
-        total,
         isEdit,
         setIsEdit,
         grocery,

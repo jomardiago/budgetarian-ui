@@ -1,11 +1,13 @@
+import { Grocery } from '@/api/products/productApi';
 import { formatCurrency } from '@/helpers/currency-utils';
-import { useContext } from 'react';
-import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
+import { getTotal } from '../helpers/grocery-utils';
 
-type GroceryHeaderProps = {};
+type GroceryHeaderProps = {
+  groceries: Grocery[];
+};
 
 const GroceryHeader = (props: GroceryHeaderProps) => {
-  const { total } = useContext(GroceriesContext) as GroceriesContextValue;
+  const total = getTotal(props.groceries);
 
   return (
     <div className="flex justify-between my-4">

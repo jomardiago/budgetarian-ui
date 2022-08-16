@@ -2,6 +2,7 @@ import { Grocery } from '@/api/products/productApi';
 import { formatCurrency } from '@/helpers/currency-utils';
 import { useContext } from 'react';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
+import { getTotal } from '../helpers/grocery-utils';
 import GroceryCard from './GroceryCard';
 
 type GroceryListProps = {
@@ -9,8 +10,8 @@ type GroceryListProps = {
 };
 
 const GroceryList = (props: GroceryListProps) => {
-  const { total } = useContext(GroceriesContext) as GroceriesContextValue;
   const { groceries } = props;
+  const total = getTotal(groceries);
 
   return (
     <div>

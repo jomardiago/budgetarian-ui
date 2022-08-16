@@ -1,7 +1,7 @@
+import { Grocery } from '@/api/products/productApi';
 import { formatCurrency } from '@/helpers/currency-utils';
 import { useContext, useState } from 'react';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
-import { Grocery } from '../Groceries';
 
 type GroceryCardProps = {
   grocery: Grocery;
@@ -18,7 +18,7 @@ const GroceryCard = (props: GroceryCardProps) => {
   };
 
   const handleOnDelete = () => {
-    const updatedGroceries = groceries.filter((existingGrocery) => existingGrocery.id !== grocery.id);
+    const updatedGroceries = groceries.filter((existingGrocery) => existingGrocery._id !== grocery._id);
     setGroceries(updatedGroceries);
   };
 
