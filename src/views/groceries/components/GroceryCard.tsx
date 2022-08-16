@@ -6,10 +6,11 @@ import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesCon
 
 type GroceryCardProps = {
   grocery: GroceryItem;
+  formDivRef: React.RefObject<HTMLDivElement>;
 };
 
 const GroceryCard = (props: GroceryCardProps) => {
-  const { grocery } = props;
+  const { grocery, formDivRef } = props;
   const { setGrocery, setIsEdit } = useContext(GroceriesContext) as GroceriesContextValue;
   const [isVisible, setIsVisible] = useState(false);
 
@@ -19,6 +20,9 @@ const GroceryCard = (props: GroceryCardProps) => {
   const handleOnEdit = () => {
     setIsEdit(true);
     setGrocery(grocery);
+    if (formDivRef && formDivRef.current) {
+      formDivRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleOnDelete = async () => {
@@ -30,7 +34,7 @@ const GroceryCard = (props: GroceryCardProps) => {
   };
 
   return (
-    <div className="shadow-md p-2 flex flex-col gap-2 bg-blue-100">
+    <div className="shadow-md p-2 flex flex-col gap-2 bg-slate-50 rounded-md">
       <span className="flex justify-between cursor-pointer font-semibold" onClick={() => setIsVisible((visible) => !visible)}>
         <p>
           {grocery.name} ({grocery.quantity})

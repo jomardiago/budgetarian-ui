@@ -5,10 +5,11 @@ import GroceryCard from './GroceryCard';
 
 type GroceryListProps = {
   groceries: GroceryItem[];
+  formDivRef: React.RefObject<HTMLDivElement>;
 };
 
 const GroceryList = (props: GroceryListProps) => {
-  const { groceries } = props;
+  const { groceries, formDivRef } = props;
   const total = getTotal(groceries);
 
   return (
@@ -16,12 +17,11 @@ const GroceryList = (props: GroceryListProps) => {
       {groceries.length === 0 ? (
         <p>Your grocery is empty...</p>
       ) : (
-        <div className="flex flex-col gap-2">
-          <p className="text-xl font-semibold text-right">Total: {formatCurrency(total)}</p>
+        <div className="flex flex-col gap-2 bg-slate-200 py-4 px-2 rounded-md mb-4">
           {groceries.map((grocery) => (
-            <GroceryCard key={grocery._id} grocery={grocery} />
+            <GroceryCard key={grocery._id} grocery={grocery} formDivRef={formDivRef} />
           ))}
-          <p className="text-3xl font-semibold text-right">Total: {formatCurrency(total)}</p>
+          <p className="text-3xl font-semibold text-right mt-2">Total: {formatCurrency(total)}</p>
         </div>
       )}
     </div>
