@@ -1,6 +1,7 @@
-import { GroceryItem } from '@/api/groceryItem/groceryItemApi';
+import { deleteGroceryItem, GroceryItem } from '@/api/groceryItem/groceryItemApi';
 import { formatCurrency } from '@/helpers/currency-utils';
 import { useContext, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
 
 type GroceryCardProps = {
@@ -9,17 +10,23 @@ type GroceryCardProps = {
 
 const GroceryCard = (props: GroceryCardProps) => {
   const { grocery } = props;
-  const { groceries, setGroceries, setGrocery, setIsEdit } = useContext(GroceriesContext) as GroceriesContextValue;
+  const { setGrocery, setIsEdit } = useContext(GroceriesContext) as GroceriesContextValue;
   const [isVisible, setIsVisible] = useState(false);
+
+  const queryClient = useQueryClient();
+  const deleteGroceryItemMutation = useMutation(deleteGroceryItem);
 
   const handleOnEdit = () => {
     setIsEdit(true);
     setGrocery(grocery);
   };
 
-  const handleOnDelete = () => {
-    const updatedGroceries = groceries.filter((existingGrocery) => existingGrocery._id !== grocery._id);
-    setGroceries(updatedGroceries);
+  const handleOnDelete = async () => {
+    if (grocery._id) {
+      await deleteGroceryItemMutation.mutate(grocery._id, {
+        onSuccess: () => queryClient.invalidateQueries('grocery-items'),
+      });
+    }
   };
 
   return (
