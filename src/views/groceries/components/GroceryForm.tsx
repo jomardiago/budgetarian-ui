@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
 
 type GroceryFormProps = {};
 
 const GroceryForm = (props: GroceryFormProps) => {
+  const nameInputRef = useRef<HTMLInputElement>(null);
   const { grocery, setGrocery, groceries, setGroceries, isEdit, setIsEdit } = useContext(GroceriesContext) as GroceriesContextValue;
 
   const formFieldClass = 'w-full flex flex-col';
@@ -41,6 +42,8 @@ const GroceryForm = (props: GroceryFormProps) => {
       price: 0,
       quantity: 0,
     });
+
+    nameInputRef.current?.focus();
   };
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +68,7 @@ const GroceryForm = (props: GroceryFormProps) => {
             className={formFieldInputClass}
             onChange={handleOnChange}
             value={grocery.name}
+            ref={nameInputRef}
           />
         </div>
         <div className={formFieldClass}>
