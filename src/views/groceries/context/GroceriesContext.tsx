@@ -1,12 +1,12 @@
 import { GroceryItem } from '@/api/groceryItem/groceryItemApi';
 import React, { createContext, useState } from 'react';
 
-const initialGroceryValue = {
+export const initialGroceryValue = {
   _id: '',
   name: '',
   description: '',
   price: 0,
-  quantity: 0,
+  quantity: 1,
 };
 
 export type GroceriesContextValue = {

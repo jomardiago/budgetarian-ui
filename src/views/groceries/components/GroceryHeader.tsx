@@ -12,7 +12,7 @@ const GroceryHeader = (props: GroceryHeaderProps) => {
   return (
     <div className="flex justify-between my-4">
       <p className="text-2xl font-semibold">Budget: {formatCurrency(3000)}</p>
-      <p className="text-2xl font-semibold text-red-500">Remaining Budget: {formatCurrency(3000 - total)}</p>
+      <p className="text-2xl font-semibold text-red-500">Budget Left: {formatCurrency(3000 - total)}</p>
     </div>
   );
 };

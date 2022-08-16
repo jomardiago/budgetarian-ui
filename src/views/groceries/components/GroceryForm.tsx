@@ -1,7 +1,7 @@
 import { postGroceryItem, updateGroceryItem } from '@/api/groceryItem/groceryItemApi';
 import React, { useContext, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
+import { GroceriesContext, GroceriesContextValue, initialGroceryValue } from '../context/GroceriesContext';
 
 type GroceryFormProps = {};
 
@@ -17,13 +17,7 @@ const GroceryForm = (props: GroceryFormProps) => {
   const formFieldInputClass = 'border-2 p-2 rounded-sm';
 
   const onSuccessCallback = () => {
-    setGrocery({
-      _id: '',
-      name: '',
-      description: '',
-      price: 0,
-      quantity: 0,
-    });
+    setGrocery(initialGroceryValue);
     queryClient.invalidateQueries('grocery-items');
     setIsEdit(false);
   };
@@ -72,6 +66,7 @@ const GroceryForm = (props: GroceryFormProps) => {
             onChange={handleOnChange}
             value={grocery.name}
             ref={nameInputRef}
+            required
           />
         </div>
         <div className={formFieldClass}>
@@ -86,7 +81,7 @@ const GroceryForm = (props: GroceryFormProps) => {
             value={grocery.description}
           />
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-col lg:flex-row">
           <div className={formFieldClass}>
             <label htmlFor="price">Price</label>
             <input
@@ -97,6 +92,7 @@ const GroceryForm = (props: GroceryFormProps) => {
               className={formFieldInputClass}
               onChange={handleOnChange}
               value={grocery.price}
+              required
             />
           </div>
           <div className={formFieldClass}>
@@ -109,6 +105,7 @@ const GroceryForm = (props: GroceryFormProps) => {
               className={formFieldInputClass}
               onChange={handleOnChange}
               value={grocery.quantity}
+              required
             />
           </div>
         </div>
