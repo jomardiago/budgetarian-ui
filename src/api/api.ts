@@ -3,7 +3,7 @@ import { ApiRequestConfig, WithAbortFn, ApiExecutor, ApiExecutorArgs, ApiError }
 // Default config for the axios instance
 const axiosParams = {
   // Set different base URL based on the environment
-  baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:5000/api/v1/' : '/',
+  baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:5000/' : 'https://budgetarian-api.herokuapp.com/',
 };
 
 // Create axios instance with default params
