@@ -28,7 +28,7 @@ const GroceryCard = (props: GroceryCardProps) => {
         <p>
           {grocery.name} ({grocery.quantity})
         </p>
-        <p>Total Price: {formatCurrency(grocery.quantity * grocery.price)}</p>
+        <p>{formatCurrency(grocery.quantity * grocery.price)}</p>
       </span>
       {isVisible ? (
         <div className="flex justify-between">

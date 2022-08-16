@@ -14,3 +14,5 @@ export const fetchProducts = (config: ApiRequestConfig = {}) => {
 };
 
 export const postProduct = (product: Omit<Grocery, '_id'>) => api.post('products', product);
+
+export const updateProduct = (product: Grocery) => api.put(`products/${product._id}`, product);

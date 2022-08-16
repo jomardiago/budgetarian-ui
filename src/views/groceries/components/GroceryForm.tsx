@@ -1,4 +1,4 @@
-import { postProduct } from '@/api/products/productApi';
+import { postProduct, updateProduct } from '@/api/products/productApi';
 import React, { useContext, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
@@ -7,13 +7,26 @@ type GroceryFormProps = {};
 
 const GroceryForm = (props: GroceryFormProps) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
-  const { grocery, setGrocery, groceries, setGroceries, isEdit, setIsEdit } = useContext(GroceriesContext) as GroceriesContextValue;
+  const { grocery, setGrocery, isEdit, setIsEdit } = useContext(GroceriesContext) as GroceriesContextValue;
 
   const queryClient = useQueryClient();
   const createProductMutation = useMutation(postProduct);
+  const updateProductMutation = useMutation(updateProduct);
 
   const formFieldClass = 'w-full flex flex-col';
   const formFieldInputClass = 'border-2 p-2 rounded-sm';
+
+  const onSuccessCallback = () => {
+    setGrocery({
+      _id: '',
+      name: '',
+      description: '',
+      price: 0,
+      quantity: 0,
+    });
+    queryClient.invalidateQueries('products');
+    setIsEdit(false);
+  };
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,30 +36,13 @@ const GroceryForm = (props: GroceryFormProps) => {
     }
 
     if (isEdit) {
-      const updatedGroceries = groceries.map((existingGrocery) => {
-        if (grocery._id === existingGrocery._id) {
-          return {
-            ...grocery,
-          };
-        }
-        return grocery;
+      await updateProductMutation.mutate(grocery, {
+        onSuccess: () => onSuccessCallback(),
       });
-
-      setGroceries(updatedGroceries);
-      setIsEdit(false);
     } else {
       delete grocery._id;
       await createProductMutation.mutate(grocery, {
-        onSuccess: () => {
-          setGrocery({
-            _id: '',
-            name: '',
-            description: '',
-            price: 0,
-            quantity: 0,
-          });
-          queryClient.invalidateQueries('products');
-        },
+        onSuccess: () => onSuccessCallback(),
       });
     }
 
