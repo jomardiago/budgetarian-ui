@@ -1,7 +1,5 @@
 import { Grocery } from '@/api/products/productApi';
 import { formatCurrency } from '@/helpers/currency-utils';
-import { useContext } from 'react';
-import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
 import { getTotal } from '../helpers/grocery-utils';
 import GroceryCard from './GroceryCard';
 
