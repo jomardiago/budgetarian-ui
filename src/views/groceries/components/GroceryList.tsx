@@ -1,12 +1,16 @@
+import { Grocery } from '@/api/products/productApi';
 import { formatCurrency } from '@/helpers/currency-utils';
 import { useContext } from 'react';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
 import GroceryCard from './GroceryCard';
 
-type GroceryListProps = {};
+type GroceryListProps = {
+  groceries: Grocery[];
+};
 
 const GroceryList = (props: GroceryListProps) => {
-  const { groceries, total } = useContext(GroceriesContext) as GroceriesContextValue;
+  const { total } = useContext(GroceriesContext) as GroceriesContextValue;
+  const { groceries } = props;
 
   return (
     <div>
@@ -16,7 +20,7 @@ const GroceryList = (props: GroceryListProps) => {
         <div className="flex flex-col gap-2">
           <p className="text-xl font-semibold">Total: {formatCurrency(total)}</p>
           {groceries.map((grocery) => (
-            <GroceryCard key={grocery.id} grocery={grocery} />
+            <GroceryCard key={grocery._id} grocery={grocery} />
           ))}
           <p className="text-3xl font-semibold">Total: {formatCurrency(total)}</p>
         </div>

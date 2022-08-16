@@ -1,19 +1,15 @@
+import { fetchProducts, Grocery } from '@/api/products/productApi';
+import { useQuery } from 'react-query';
 import GroceryForm from './components/GroceryForm';
 import GroceryHeader from './components/GroceryHeader';
 import GroceryList from './components/GroceryList';
 import GroceriesContextProvider from './context/GroceriesContext';
 
-export type Grocery = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  quantity: number;
-};
-
 type GroceriesProps = {};
 
 const Groceries = (props: GroceriesProps) => {
+  const { data: groceries = [] } = useQuery<Grocery[]>('products', () => fetchProducts());
+
   return (
     <GroceriesContextProvider>
       <GroceryHeader />
@@ -22,7 +18,7 @@ const Groceries = (props: GroceriesProps) => {
           <GroceryForm />
         </div>
         <div>
-          <GroceryList />
+          <GroceryList groceries={groceries} />
         </div>
       </div>
     </GroceriesContextProvider>

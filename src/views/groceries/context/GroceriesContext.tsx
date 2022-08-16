@@ -1,8 +1,8 @@
+import { Grocery } from '@/api/products/productApi';
 import React, { createContext, useState } from 'react';
-import { Grocery } from '../Groceries';
 
 const initialGroceryValue = {
-  id: '',
+  _id: '',
   name: '',
   description: '',
   price: 0,

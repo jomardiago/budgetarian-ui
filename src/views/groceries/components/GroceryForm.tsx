@@ -1,4 +1,6 @@
+import { postProduct } from '@/api/products/productApi';
 import React, { useContext, useRef } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
 
 type GroceryFormProps = {};
@@ -7,10 +9,13 @@ const GroceryForm = (props: GroceryFormProps) => {
   const nameInputRef = useRef<HTMLInputElement>(null);
   const { grocery, setGrocery, groceries, setGroceries, isEdit, setIsEdit } = useContext(GroceriesContext) as GroceriesContextValue;
 
+  const queryClient = useQueryClient();
+  const createProductMutation = useMutation(postProduct);
+
   const formFieldClass = 'w-full flex flex-col';
   const formFieldInputClass = 'border-2 p-2 rounded-sm';
 
-  const handleOnSubmit = (e: React.SyntheticEvent) => {
+  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!grocery.name || !grocery.description || grocery.price === 0 || grocery.quantity === 0) {
@@ -19,7 +24,7 @@ const GroceryForm = (props: GroceryFormProps) => {
 
     if (isEdit) {
       const updatedGroceries = groceries.map((existingGrocery) => {
-        if (grocery.id === existingGrocery.id) {
+        if (grocery._id === existingGrocery._id) {
           return {
             ...grocery,
           };
@@ -30,18 +35,20 @@ const GroceryForm = (props: GroceryFormProps) => {
       setGroceries(updatedGroceries);
       setIsEdit(false);
     } else {
-      setGroceries((groceries) => {
-        return [...groceries, { ...grocery, id: Math.floor(Math.random() * 100).toString() }];
+      delete grocery._id;
+      await createProductMutation.mutate(grocery, {
+        onSuccess: () => {
+          setGrocery({
+            _id: '',
+            name: '',
+            description: '',
+            price: 0,
+            quantity: 0,
+          });
+          queryClient.invalidateQueries('products');
+        },
       });
     }
-
-    setGrocery({
-      id: '',
-      name: '',
-      description: '',
-      price: 0,
-      quantity: 0,
-    });
 
     nameInputRef.current?.focus();
   };
