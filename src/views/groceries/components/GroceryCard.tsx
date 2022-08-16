@@ -1,10 +1,10 @@
-import { Grocery } from '@/api/products/productApi';
+import { GroceryItem } from '@/api/groceryItem/groceryItemApi';
 import { formatCurrency } from '@/helpers/currency-utils';
 import { useContext, useState } from 'react';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
 
 type GroceryCardProps = {
-  grocery: Grocery;
+  grocery: GroceryItem;
 };
 
 const GroceryCard = (props: GroceryCardProps) => {

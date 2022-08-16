@@ -1,10 +1,10 @@
-import { Grocery } from '@/api/products/productApi';
+import { GroceryItem } from '@/api/groceryItem/groceryItemApi';
 import { formatCurrency } from '@/helpers/currency-utils';
 import { getTotal } from '../helpers/grocery-utils';
 import GroceryCard from './GroceryCard';
 
 type GroceryListProps = {
-  groceries: Grocery[];
+  groceries: GroceryItem[];
 };
 
 const GroceryList = (props: GroceryListProps) => {

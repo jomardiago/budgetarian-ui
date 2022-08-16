@@ -1,3 +1,3 @@
-import { Grocery } from '@/api/products/productApi';
+import { GroceryItem } from '@/api/groceryItem/groceryItemApi';
 
-export const getTotal = (groceries: Grocery[]) => groceries.reduce((total, grocery) => total + grocery.price * grocery.quantity, 0);
+export const getTotal = (groceries: GroceryItem[]) => groceries.reduce((total, grocery) => total + grocery.price * grocery.quantity, 0);

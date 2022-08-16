@@ -1,4 +1,4 @@
-import { Grocery } from '@/api/products/productApi';
+import { GroceryItem } from '@/api/groceryItem/groceryItemApi';
 import React, { createContext, useState } from 'react';
 
 const initialGroceryValue = {
@@ -12,10 +12,10 @@ const initialGroceryValue = {
 export type GroceriesContextValue = {
   isEdit: boolean;
   setIsEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  grocery: Grocery;
-  setGrocery: React.Dispatch<React.SetStateAction<Grocery>>;
-  groceries: Grocery[];
-  setGroceries: React.Dispatch<React.SetStateAction<Grocery[]>>;
+  grocery: GroceryItem;
+  setGrocery: React.Dispatch<React.SetStateAction<GroceryItem>>;
+  groceries: GroceryItem[];
+  setGroceries: React.Dispatch<React.SetStateAction<GroceryItem[]>>;
 };
 
 export const GroceriesContext = createContext<GroceriesContextValue>({
@@ -33,8 +33,8 @@ type GroceriesContextProviderProps = {
 
 const GroceriesContextProvider = (props: GroceriesContextProviderProps) => {
   const { children } = props;
-  const [grocery, setGrocery] = useState<Grocery>(initialGroceryValue);
-  const [groceries, setGroceries] = useState<Grocery[]>([]);
+  const [grocery, setGrocery] = useState<GroceryItem>(initialGroceryValue);
+  const [groceries, setGroceries] = useState<GroceryItem[]>([]);
   const [isEdit, setIsEdit] = useState(false);
 
   return (

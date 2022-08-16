@@ -1,4 +1,4 @@
-import { postProduct, updateProduct } from '@/api/products/productApi';
+import { postGroceryItem, updateGroceryItem } from '@/api/groceryItem/groceryItemApi';
 import React, { useContext, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
@@ -10,8 +10,8 @@ const GroceryForm = (props: GroceryFormProps) => {
   const { grocery, setGrocery, isEdit, setIsEdit } = useContext(GroceriesContext) as GroceriesContextValue;
 
   const queryClient = useQueryClient();
-  const createProductMutation = useMutation(postProduct);
-  const updateProductMutation = useMutation(updateProduct);
+  const createProductMutation = useMutation(postGroceryItem);
+  const updateProductMutation = useMutation(updateGroceryItem);
 
   const formFieldClass = 'w-full flex flex-col';
   const formFieldInputClass = 'border-2 p-2 rounded-sm';
@@ -24,7 +24,7 @@ const GroceryForm = (props: GroceryFormProps) => {
       price: 0,
       quantity: 0,
     });
-    queryClient.invalidateQueries('products');
+    queryClient.invalidateQueries('grocery-items');
     setIsEdit(false);
   };
 
