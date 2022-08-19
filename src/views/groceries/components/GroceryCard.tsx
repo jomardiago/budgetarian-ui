@@ -55,7 +55,7 @@ const GroceryCard = (props: GroceryCardProps) => {
             <p>Quantity: {grocery.quantity}</p>
           </div>
           <div className="my-auto flex gap-2">
-            <button onClick={handleOnEdit}>
+            <button onClick={handleOnDelete}>
               <TrashIcon className="h-5 w-5 text-red-500" />
             </button>
             <button onClick={handleOnEdit}>
