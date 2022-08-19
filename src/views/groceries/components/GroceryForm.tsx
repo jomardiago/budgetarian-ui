@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { toast } from 'react-toastify';
+import { toast, Zoom } from 'react-toastify';
 import { postGroceryItem, updateGroceryItem } from '@/api/groceryItem/groceryItemApi';
 import { GroceriesContext, GroceriesContextValue, initialGroceryValue } from '../context/GroceriesContext';
 
@@ -21,15 +21,18 @@ const GroceryForm = (props: GroceryFormProps) => {
     setGrocery(initialGroceryValue);
     queryClient.invalidateQueries('grocery-items');
     setIsEdit(false);
-    toast.success('Grocery Item Saved...', {
-      autoClose: 2000
+    toast.success('Grocery item saved...', {
+      autoClose: 1000,
+      hideProgressBar: true,
+      position: 'top-center',
+      transition: Zoom,
     });
   };
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!grocery.name || !grocery.description || grocery.price === 0 || grocery.quantity === 0) {
+    if (!grocery.name || grocery.price === 0 || grocery.quantity === 0) {
       return;
     }
 
@@ -65,7 +68,9 @@ const GroceryForm = (props: GroceryFormProps) => {
     <div className="shadow-md p-4 rounded-md bg-slate-600">
       <form className="w-full flex flex-col gap-2" onSubmit={handleOnSubmit}>
         <div className={formFieldClass}>
-          <label htmlFor="name" className="text-sm text-white">Name</label>
+          <label htmlFor="name" className="text-sm text-white">
+            Name
+          </label>
           <input
             type="text"
             id="name"
@@ -79,7 +84,9 @@ const GroceryForm = (props: GroceryFormProps) => {
           />
         </div>
         <div className={formFieldClass}>
-          <label htmlFor="description" className="text-sm text-white">Description</label>
+          <label htmlFor="description" className="text-sm text-white">
+            Description
+          </label>
           <input
             type="text"
             id="description"
@@ -92,7 +99,9 @@ const GroceryForm = (props: GroceryFormProps) => {
         </div>
         <div className="flex gap-4 flex-col lg:flex-row">
           <div className={formFieldClass}>
-            <label htmlFor="price" className="text-sm text-white">Price</label>
+            <label htmlFor="price" className="text-sm text-white">
+              Price
+            </label>
             <input
               type="number"
               id="price"
@@ -105,7 +114,9 @@ const GroceryForm = (props: GroceryFormProps) => {
             />
           </div>
           <div className={formFieldClass}>
-            <label htmlFor="quantity" className="text-sm text-white">Quantity</label>
+            <label htmlFor="quantity" className="text-sm text-white">
+              Quantity
+            </label>
             <input
               type="number"
               id="quantity"
