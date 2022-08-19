@@ -10,10 +10,10 @@ const GroceryHeader = (props: GroceryHeaderProps) => {
   const total = getTotal(props.groceries);
 
   return (
-    <div className="flex text-center justify-around my-4">
+    <div className="flex text-center justify-around my-4 gap-4 text-white">
       <p className="text-base font-semibold">Budget: {formatCurrency(3000)}</p>
       <p className="text-base font-semibold">Total: {formatCurrency(total)}</p>
-      <p className="text-base font-semibold text-red-500">Budget Left: {formatCurrency(3000 - total)}</p>
+      <p className="text-base font-semibold text-red-400">Budget Left: {formatCurrency(3000 - total)}</p>
     </div>
   );
 };

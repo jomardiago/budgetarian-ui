@@ -2,6 +2,7 @@ import { deleteGroceryItem, GroceryItem } from '@/api/groceryItem/groceryItemApi
 import { formatCurrency } from '@/helpers/currency-utils';
 import { useContext, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
+import { TrashIcon, PencilIcon, XIcon} from '@heroicons/react/outline';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
 
 type GroceryCardProps = {
@@ -34,26 +35,31 @@ const GroceryCard = (props: GroceryCardProps) => {
   };
 
   return (
-    <div className="shadow-md p-2 flex flex-col gap-2 bg-slate-50 rounded-md">
-      <span className="flex justify-between cursor-pointer font-semibold" onClick={() => setIsVisible((visible) => !visible)}>
-        <p>
-          {grocery.name} ({grocery.quantity})
-        </p>
+    <div className="shadow-md flex flex-col gap-2 bg-slate-300 rounded-sm">
+      <div className="flex justify-between font-semibold items-center p-1">
+        <span className="flex items-center gap-2">
+          <XIcon className="h-5 w-5 text-gray-800 cursor-pointer" onClick={handleOnDelete} />
+          <span className="cursor-pointer" onClick={() => setIsVisible((visible) => !visible)}>
+            <p>
+              {grocery.name} ({grocery.quantity})
+            </p>
+          </span>
+        </span>
         <p>{formatCurrency(grocery.quantity * grocery.price)}</p>
-      </span>
+      </div>
       {isVisible ? (
-        <div className="flex justify-between">
+        <div className="flex justify-between pt-2 p-4 bg-slate-50">
           <div>
             <p>Description: {grocery.description}</p>
             <p>Price: {formatCurrency(grocery.price)}</p>
             <p>Quantity: {grocery.quantity}</p>
           </div>
-          <div className="flex flex-col gap-2">
-            <button className="bg-blue-500 px-4 py-1 rounded-sm text-white" onClick={handleOnEdit}>
-              Edit
+          <div className="my-auto flex gap-2">
+            <button onClick={handleOnEdit}>
+              <TrashIcon className="h-5 w-5 text-red-500" />
             </button>
-            <button className="bg-red-500 px-4 py-1 rounded-sm text-white" onClick={handleOnDelete}>
-              Delete
+            <button onClick={handleOnEdit}>
+              <PencilIcon className="h-5 w-5 text-blue-500" />
             </button>
           </div>
         </div>

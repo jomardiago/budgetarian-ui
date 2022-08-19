@@ -56,11 +56,16 @@ const GroceryForm = (props: GroceryFormProps) => {
     });
   };
 
+  const clearForm = () => {
+    setGrocery(initialGroceryValue);
+    setIsEdit(false);
+  };
+
   return (
-    <div className="shadow-md p-4 rounded-md bg-slate-200">
+    <div className="shadow-md p-4 rounded-md bg-slate-600">
       <form className="w-full flex flex-col gap-2" onSubmit={handleOnSubmit}>
         <div className={formFieldClass}>
-          <label htmlFor="name" className="text-sm">Name</label>
+          <label htmlFor="name" className="text-sm text-white">Name</label>
           <input
             type="text"
             id="name"
@@ -74,7 +79,7 @@ const GroceryForm = (props: GroceryFormProps) => {
           />
         </div>
         <div className={formFieldClass}>
-          <label htmlFor="description" className="text-sm">Description</label>
+          <label htmlFor="description" className="text-sm text-white">Description</label>
           <input
             type="text"
             id="description"
@@ -87,7 +92,7 @@ const GroceryForm = (props: GroceryFormProps) => {
         </div>
         <div className="flex gap-4 flex-col lg:flex-row">
           <div className={formFieldClass}>
-            <label htmlFor="price" className="text-sm">Price</label>
+            <label htmlFor="price" className="text-sm text-white">Price</label>
             <input
               type="number"
               id="price"
@@ -100,7 +105,7 @@ const GroceryForm = (props: GroceryFormProps) => {
             />
           </div>
           <div className={formFieldClass}>
-            <label htmlFor="quantity" className="text-sm">Quantity</label>
+            <label htmlFor="quantity" className="text-sm text-white">Quantity</label>
             <input
               type="number"
               id="quantity"
@@ -113,9 +118,12 @@ const GroceryForm = (props: GroceryFormProps) => {
             />
           </div>
         </div>
-        <div>
-          <button type="submit" className="px-6 py-2 bg-blue-500 text-white rounded-md">
-            {isEdit ? 'Save' : 'Submit'}
+        <div className="flex items-center gap-4 w-full pt-2">
+          <button type="submit" className="px-6 py-2 bg-orange-300 text-white rounded-md w-full">
+            {isEdit ? 'Update' : 'Save'}
+          </button>
+          <button className="px-6 py-2 bg-rose-400 text-white rounded-md w-full" onClick={clearForm}>
+            Clear
           </button>
         </div>
       </form>
