@@ -5,7 +5,7 @@ export type GroceryItem = {
   _id?: string;
   name: string;
   description: string;
-  price: number;
+  price?: number | string;
   quantity: number;
 };
 

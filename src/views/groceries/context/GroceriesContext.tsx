@@ -5,7 +5,7 @@ export const initialGroceryValue = {
   _id: '',
   name: '',
   description: '',
-  price: 0,
+  price: '',
   quantity: 1,
 };
 

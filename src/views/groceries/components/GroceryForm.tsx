@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { success } from '@/helpers/toast-utils';
 import { postGroceryItem, updateGroceryItem } from '@/api/groceryItem/groceryItemApi';
 import { GroceriesContext, GroceriesContextValue, initialGroceryValue } from '../context/GroceriesContext';
+import Input from '@/components/Input';
 
 type GroceryFormProps = {};
 
@@ -59,30 +60,24 @@ const GroceryForm = (props: GroceryFormProps) => {
     <div className="shadow-md p-4 rounded-md bg-slate-600">
       <form className="w-full flex flex-col gap-2" onSubmit={handleOnSubmit}>
         <div className={formFieldClass}>
-          <label htmlFor="name" className="text-sm text-white">
-            Name
-          </label>
-          <input
+          <Input
             type="text"
             id="name"
             name="name"
-            placeholder="Enter product name"
+            label="Name"
             className={formFieldInputClass}
             onChange={handleOnChange}
             value={grocery.name}
-            ref={nameInputRef}
+            inputRef={nameInputRef}
             required
           />
         </div>
         <div className={formFieldClass}>
-          <label htmlFor="description" className="text-sm text-white">
-            Description
-          </label>
-          <input
+          <Input
             type="text"
             id="description"
             name="description"
-            placeholder="Enter product description"
+            label="Description"
             className={formFieldInputClass}
             onChange={handleOnChange}
             value={grocery.description}
@@ -90,14 +85,11 @@ const GroceryForm = (props: GroceryFormProps) => {
         </div>
         <div className="flex gap-4 flex-col lg:flex-row">
           <div className={formFieldClass}>
-            <label htmlFor="price" className="text-sm text-white">
-              Price
-            </label>
-            <input
+            <Input
               type="number"
               id="price"
               name="price"
-              placeholder="Enter product price"
+              label="Price"
               className={formFieldInputClass}
               onChange={handleOnChange}
               value={grocery.price}
@@ -106,14 +98,11 @@ const GroceryForm = (props: GroceryFormProps) => {
             />
           </div>
           <div className={formFieldClass}>
-            <label htmlFor="quantity" className="text-sm text-white">
-              Quantity
-            </label>
-            <input
+            <Input
               type="number"
               id="quantity"
               name="quantity"
-              placeholder="Enter product quantity"
+              label="Quantity"
               className={formFieldInputClass}
               onChange={handleOnChange}
               value={grocery.quantity}
