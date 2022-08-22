@@ -15,6 +15,9 @@ const Register = (props: RegisterProps) => {
         <div className="flex flex-col gap-2">
           <Input type="password" id="password" name="password" label="Password" required />
         </div>
+        <div className="flex flex-col gap-2">
+          <Input type="password" id="confirmPassword" name="confirmPassword" label="Confirm Password" required />
+        </div>
         <div>
           <button type="submit" className="px-6 py-2 bg-orange-300 text-white rounded-md w-full">
             Register
