@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { toast, Zoom } from 'react-toastify';
+import { success } from '@/helpers/toast-utils';
 import { postGroceryItem, updateGroceryItem } from '@/api/groceryItem/groceryItemApi';
 import { GroceriesContext, GroceriesContextValue, initialGroceryValue } from '../context/GroceriesContext';
 
@@ -21,20 +21,11 @@ const GroceryForm = (props: GroceryFormProps) => {
     setGrocery(initialGroceryValue);
     queryClient.invalidateQueries('grocery-items');
     setIsEdit(false);
-    toast.success('Grocery item saved...', {
-      autoClose: 1000,
-      hideProgressBar: true,
-      position: 'top-center',
-      transition: Zoom,
-    });
+    success('Grocery item saved...');
   };
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!grocery.name || grocery.price === 0 || grocery.quantity === 0) {
-      return;
-    }
 
     if (isEdit) {
       await updateProductMutation.mutate(grocery, {
@@ -110,6 +101,7 @@ const GroceryForm = (props: GroceryFormProps) => {
               className={formFieldInputClass}
               onChange={handleOnChange}
               value={grocery.price}
+              min="0"
               required
             />
           </div>
@@ -125,6 +117,8 @@ const GroceryForm = (props: GroceryFormProps) => {
               className={formFieldInputClass}
               onChange={handleOnChange}
               value={grocery.quantity}
+              min="0"
+              step="1"
               required
             />
           </div>

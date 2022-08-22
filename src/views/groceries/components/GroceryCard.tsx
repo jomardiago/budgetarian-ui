@@ -1,8 +1,8 @@
 import { deleteGroceryItem, GroceryItem } from '@/api/groceryItem/groceryItemApi';
 import { formatCurrency } from '@/helpers/currency-utils';
+import { info, warn } from '@/helpers/toast-utils';
 import { useContext, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { toast, Zoom } from 'react-toastify';
 import { TrashIcon, PencilIcon, XIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
 
@@ -29,23 +29,13 @@ const GroceryCard = (props: GroceryCardProps) => {
 
   const handleOnDelete = async () => {
     if (grocery._id === selectedGrocery._id) {
-      toast.warn('Grocery item currently selected...', {
-        autoClose: 1000,
-        hideProgressBar: true,
-        position: 'top-center',
-        transition: Zoom,
-      });
+      warn('Grocery item currently selected...');
     } else {
       if (grocery._id) {
         await deleteGroceryItemMutation.mutate(grocery._id, {
           onSuccess: () => {
             queryClient.invalidateQueries('grocery-items');
-            toast.info('Grocery item deleted...', {
-              autoClose: 1000,
-              hideProgressBar: true,
-              position: 'top-center',
-              transition: Zoom,
-            });
+            info('Grocery item deleted...');
           },
         });
       }
@@ -69,9 +59,15 @@ const GroceryCard = (props: GroceryCardProps) => {
       {isVisible ? (
         <div className="flex justify-between pt-2 p-4 bg-slate-50">
           <div>
-            <p><span className="font-semibold">Description:</span> {grocery.description}</p>
-            <p><span className="font-semibold">Price:</span> {formatCurrency(grocery.price)}</p>
-            <p><span className="font-semibold">Quantity:</span> {grocery.quantity}</p>
+            <p>
+              <span className="font-semibold">Description:</span> {grocery.description}
+            </p>
+            <p>
+              <span className="font-semibold">Price:</span> {formatCurrency(grocery.price)}
+            </p>
+            <p>
+              <span className="font-semibold">Quantity:</span> {grocery.quantity}
+            </p>
           </div>
           <div className="my-auto flex gap-2">
             <button onClick={handleOnDelete}>
