@@ -1,4 +1,5 @@
 import { fetchGroceries, GroceryItem } from '@/api/groceryItem/groceryItemApi';
+import Layout from '@/components/Layout';
 import Loading from '@/components/Loading';
 import { useRef } from 'react';
 import { useQuery } from 'react-query';
@@ -15,14 +16,16 @@ const Groceries = (props: GroceriesProps) => {
 
   return (
     <GroceriesContextProvider>
-      <div ref={formDivRef}></div>
-      <GroceryHeader groceries={groceries} />
-      <div className="flex flex-col gap-8">
-        <div>
-          <GroceryForm />
+      <Layout>
+        <div ref={formDivRef}></div>
+        <GroceryHeader groceries={groceries} />
+        <div className="flex flex-col gap-8">
+          <div>
+            <GroceryForm />
+          </div>
+          <div>{isLoading ? <Loading /> : <GroceryList groceries={groceries} formDivRef={formDivRef} />}</div>
         </div>
-        <div>{isLoading ? <Loading /> : <GroceryList groceries={groceries} formDivRef={formDivRef} />}</div>
-      </div>
+      </Layout>
     </GroceriesContextProvider>
   );
 };

@@ -13,7 +13,7 @@ const Input = (props: InputProps) => {
       <label htmlFor={rest.name} className="text-sm text-white">
         {label}
       </label>
-      <input {...rest} ref={inputRef} />
+      <input className="p-2 rounded-md" {...rest} ref={inputRef} />
     </>
   );
 };
