@@ -1,10 +1,11 @@
 import { deleteGroceryItem, GroceryItem } from '@/api/groceryItem/groceryItemApi';
 import { formatCurrency } from '@/helpers/currency-utils';
-import { info, warn } from '@/helpers/toast-utils';
+import { toastConfig } from '@/helpers/toast-utils';
 import { useContext, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { TrashIcon, PencilIcon, XIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
+import { toast } from 'react-toastify';
 
 type GroceryCardProps = {
   grocery: GroceryItem;
@@ -29,13 +30,13 @@ const GroceryCard = (props: GroceryCardProps) => {
 
   const handleOnDelete = async () => {
     if (grocery._id === selectedGrocery._id) {
-      warn('Grocery item currently selected...');
+      toast.warn('Grocery item currently selected...', toastConfig);
     } else {
       if (grocery._id) {
         await deleteGroceryItemMutation.mutate(grocery._id, {
           onSuccess: () => {
             queryClient.invalidateQueries('grocery-items');
-            info('Grocery item deleted...');
+            toast.info('Grocery item deleted...', toastConfig);
           },
         });
       }

@@ -2,7 +2,8 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '@/context/AuthContext';
 import Input from '@/components/Input';
-import { warn } from '@/helpers/toast-utils';
+import { toastConfig } from '@/helpers/toast-utils';
+import { toast } from 'react-toastify';
 
 type RegisterProps = {};
 
@@ -22,7 +23,7 @@ const Register = (props: RegisterProps) => {
     const { password, confirmPassword } = registerForm;
 
     if (password !== confirmPassword) {
-      warn('Passwords do not match...');
+      toast.warn('Passwords do not match...', toastConfig);
     } else {
       const dummyUser = {
         _id: '1',

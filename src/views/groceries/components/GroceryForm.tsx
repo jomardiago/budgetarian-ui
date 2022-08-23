@@ -1,9 +1,10 @@
 import React, { useContext, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { success } from '@/helpers/toast-utils';
+import { toastConfig } from '@/helpers/toast-utils';
 import { postGroceryItem, updateGroceryItem } from '@/api/groceryItem/groceryItemApi';
 import { GroceriesContext, GroceriesContextValue, initialGroceryValue } from '../context/GroceriesContext';
 import Input from '@/components/Input';
+import { toast } from 'react-toastify';
 
 type GroceryFormProps = {};
 
@@ -22,7 +23,7 @@ const GroceryForm = (props: GroceryFormProps) => {
     setGrocery(initialGroceryValue);
     queryClient.invalidateQueries('grocery-items');
     setIsEdit(false);
-    success('Grocery item saved...');
+    toast.success('Grocery item saved...', toastConfig);
   };
 
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
