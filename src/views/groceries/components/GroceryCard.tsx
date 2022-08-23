@@ -55,7 +55,7 @@ const GroceryCard = (props: GroceryCardProps) => {
             </p>
           </span>
         </span>
-        <p>{formatCurrency(grocery.quantity * grocery.price)}</p>
+        {grocery.price ? <p>{formatCurrency(grocery.quantity * grocery.price)}</p> : null}
       </div>
       {isVisible ? (
         <div className="flex justify-between pt-2 p-4 bg-slate-50">
@@ -63,9 +63,11 @@ const GroceryCard = (props: GroceryCardProps) => {
             <p>
               <span className="font-semibold">Description:</span> {grocery.description}
             </p>
-            <p>
-              <span className="font-semibold">Price:</span> {formatCurrency(grocery.price)}
-            </p>
+            {grocery.price ? (
+              <p>
+                <span className="font-semibold">Price:</span> {formatCurrency(grocery.price)}
+              </p>
+            ) : null}
             <p>
               <span className="font-semibold">Quantity:</span> {grocery.quantity}
             </p>
