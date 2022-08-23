@@ -33,3 +33,12 @@ export const success = (message: string, options?: ToastOptions) => {
     });
   }
 };
+
+export const error = (message: string, options?: ToastOptions) => {
+  if (!message) {
+    toast.error(message, {
+      ...defaultValues,
+      ...options,
+    });
+  }
+};
