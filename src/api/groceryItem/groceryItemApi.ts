@@ -1,5 +1,4 @@
 import api from '../api';
-import { ApiRequestConfig } from '../api.types';
 
 export type GroceryItem = {
   _id?: string;
@@ -9,9 +8,7 @@ export type GroceryItem = {
   quantity: number;
 };
 
-export const fetchGroceries = (config: ApiRequestConfig = {}) => {
-  return api.get<GroceryItem[]>('grocery-items', config).then((res) => res.data);
-};
+export const fetchGroceries = () => api.get<GroceryItem[]>('grocery-items').then((res) => res.data);
 
 export const postGroceryItem = (product: Omit<GroceryItem, '_id'>) => api.post('grocery-items', product);
 

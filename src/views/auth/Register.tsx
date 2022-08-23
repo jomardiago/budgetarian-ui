@@ -4,41 +4,39 @@ import { AuthContext } from '@/context/AuthContext';
 import Input from '@/components/Input';
 import { toastConfig } from '@/helpers/toast-utils';
 import { toast } from 'react-toastify';
+import { useMutation } from 'react-query';
+import { registerUser } from '@/api/auth/authApi';
 
 type RegisterProps = {};
 
 const Register = (props: RegisterProps) => {
+  const registerUserMutation = useMutation(registerUser);
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
   const [registerForm, setRegisterForm] = useState({
     email: '',
     username: '',
     password: '',
     confirmPassword: '',
   });
-  const { setUser } = useContext(AuthContext);
-  const navigate = useNavigate();
 
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { password, confirmPassword } = registerForm;
+    const { email, username, password, confirmPassword } = registerForm;
 
     if (password !== confirmPassword) {
       toast.warn('Passwords do not match...', toastConfig);
     } else {
-      const dummyUser = {
-        _id: '1',
-        username: 'jomardiago',
-      };
-
-      setUser(dummyUser);
-
-      localStorage.setItem('user', JSON.stringify(dummyUser));
-
-      setTimeout(() => {
-        navigate('/');
-      }, 500);
-
-      console.log(registerForm);
+      await registerUserMutation.mutate(
+        { email, username, password },
+        {
+          onSuccess: (response) => {
+            localStorage.setItem('token', response.data.token);
+            login(() => navigate('/'));
+          },
+        }
+      );
     }
   };
 
