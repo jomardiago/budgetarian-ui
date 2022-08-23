@@ -35,6 +35,9 @@ const Register = (props: RegisterProps) => {
             localStorage.setItem('token', response.data.token);
             login(() => navigate('/'));
           },
+          onError: (error: any) => {
+            toast.error(error.response.data.message, toastConfig);
+          },
         }
       );
     }

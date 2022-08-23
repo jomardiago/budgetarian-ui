@@ -1,9 +1,11 @@
 import { loginUser } from '@/api/auth/authApi';
 import Input from '@/components/Input';
 import { AuthContext } from '@/context/AuthContext';
+import { toastConfig } from '@/helpers/toast-utils';
 import React, { useContext, useState } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 type LoginProps = {};
 
@@ -22,6 +24,9 @@ const Login = (props: LoginProps) => {
       onSuccess: (response) => {
         localStorage.setItem('token', response.data.token);
         login(() => navigate('/'));
+      },
+      onError: (error: any) => {
+        toast.error(error.response.data.message, toastConfig);
       },
     });
   };
