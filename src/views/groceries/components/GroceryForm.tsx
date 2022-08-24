@@ -5,10 +5,12 @@ import { postGroceryItem, updateGroceryItem } from '@/api/groceryItem/groceryIte
 import { GroceriesContext, GroceriesContextValue, initialGroceryValue } from '../context/GroceriesContext';
 import Input from '@/components/Input';
 import { toast } from 'react-toastify';
+import { AuthContext } from '@/context/AuthContext';
 
 type GroceryFormProps = {};
 
 const GroceryForm = (props: GroceryFormProps) => {
+  const { user } = useContext(AuthContext);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const { grocery, setGrocery, isEdit, setIsEdit } = useContext(GroceriesContext) as GroceriesContextValue;
 
@@ -21,7 +23,7 @@ const GroceryForm = (props: GroceryFormProps) => {
 
   const onSuccessCallback = () => {
     setGrocery(initialGroceryValue);
-    queryClient.invalidateQueries('grocery-items');
+    queryClient.invalidateQueries(`grocery-items-${user?._id}`);
     setIsEdit(false);
     toast.success('Grocery item saved...', toastConfig);
   };

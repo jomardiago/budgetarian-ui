@@ -1,7 +1,8 @@
 import { fetchGroceries, GroceryItem } from '@/api/groceryItem/groceryItemApi';
 import Layout from '@/components/Layout';
 import Loading from '@/components/Loading';
-import { useRef } from 'react';
+import { AuthContext } from '@/context/AuthContext';
+import { useContext, useRef } from 'react';
 import { useQuery } from 'react-query';
 import GroceryForm from './components/GroceryForm';
 import GroceryHeader from './components/GroceryHeader';
@@ -11,7 +12,8 @@ import GroceriesContextProvider from './context/GroceriesContext';
 type GroceriesProps = {};
 
 const Groceries = (props: GroceriesProps) => {
-  const { data: groceries = [], isLoading } = useQuery<GroceryItem[]>('grocery-items', () => fetchGroceries());
+  const { user } = useContext(AuthContext);
+  const { data: groceries = [], isLoading } = useQuery<GroceryItem[]>(`grocery-items-${user?._id}`, () => fetchGroceries());
   const formDivRef = useRef<HTMLDivElement>(null);
 
   return (

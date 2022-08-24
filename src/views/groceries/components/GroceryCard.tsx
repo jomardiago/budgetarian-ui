@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { TrashIcon, PencilIcon, XIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/outline';
 import { GroceriesContext, GroceriesContextValue } from '../context/GroceriesContext';
 import { toast } from 'react-toastify';
+import { AuthContext } from '@/context/AuthContext';
 
 type GroceryCardProps = {
   grocery: GroceryItem;
@@ -13,6 +14,7 @@ type GroceryCardProps = {
 };
 
 const GroceryCard = (props: GroceryCardProps) => {
+  const { user } = useContext(AuthContext);
   const { grocery, formDivRef } = props;
   const { setGrocery, setIsEdit, grocery: selectedGrocery } = useContext(GroceriesContext) as GroceriesContextValue;
   const [isVisible, setIsVisible] = useState(false);
@@ -35,7 +37,7 @@ const GroceryCard = (props: GroceryCardProps) => {
       if (grocery._id) {
         await deleteGroceryItemMutation.mutate(grocery._id, {
           onSuccess: () => {
-            queryClient.invalidateQueries('grocery-items');
+            queryClient.invalidateQueries(`grocery-items-${user?._id}`);
             toast.info('Grocery item deleted...', toastConfig);
           },
         });
