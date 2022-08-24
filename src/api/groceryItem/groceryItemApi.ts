@@ -16,8 +16,8 @@ const setHeaders = () => ({
 
 export const fetchGroceries = () => api.get<GroceryItem[]>('grocery-items', setHeaders()).then((res) => res.data);
 
-export const postGroceryItem = (product: Omit<GroceryItem, '_id'>) => api.post('grocery-items', product);
+export const postGroceryItem = (product: Omit<GroceryItem, '_id'>) => api.post('grocery-items', product, setHeaders());
 
-export const updateGroceryItem = (product: GroceryItem) => api.put(`grocery-items/${product._id}`, product);
+export const updateGroceryItem = (product: GroceryItem) => api.put(`grocery-items/${product._id}`, product, setHeaders());
 
-export const deleteGroceryItem = (id: string) => api.delete(`grocery-items/${id}`);
+export const deleteGroceryItem = (id: string) => api.delete(`grocery-items/${id}`, setHeaders());
