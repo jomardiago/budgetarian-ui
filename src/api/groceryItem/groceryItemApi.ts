@@ -8,7 +8,13 @@ export type GroceryItem = {
   quantity: number;
 };
 
-export const fetchGroceries = () => api.get<GroceryItem[]>('grocery-items').then((res) => res.data);
+const setHeaders = () => ({
+  headers: {
+    Authorization: 'Bearer ' + localStorage.getItem('token'),
+  },
+});
+
+export const fetchGroceries = () => api.get<GroceryItem[]>('grocery-items', setHeaders()).then((res) => res.data);
 
 export const postGroceryItem = (product: Omit<GroceryItem, '_id'>) => api.post('grocery-items', product);
 

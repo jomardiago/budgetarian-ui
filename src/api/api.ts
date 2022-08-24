@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, Cancel } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, Cancel } from 'axios';
 import { ApiRequestConfig, WithAbortFn, ApiExecutor, ApiExecutorArgs, ApiError } from './api.types';
 // Default config for the axios instance
 const axiosParams = {
@@ -54,11 +54,11 @@ const withAbort = <T>(fn: WithAbortFn) => {
 
 const api = (axios: AxiosInstance) => {
   return {
-    get: <T>(url: string, config: ApiRequestConfig = {}) => (withAbort<T>(axios.get)(url, config)),
-    delete: <T>(url: string, config: ApiRequestConfig = {}) => (withAbort<T>(axios.delete)(url, config)),
-    post: <T>(url: string, body: unknown, config: ApiRequestConfig = {}) => (withAbort<T>(axios.post)(url, body, config)),
-    patch: <T>(url: string, body: unknown, config: ApiRequestConfig = {}) => (withAbort<T>(axios.patch)(url, body, config)),
-    put: <T>(url: string, body: unknown, config: ApiRequestConfig = {}) => (withAbort<T>(axios.put)(url, body, config)),
+    get: <T>(url: string, config: ApiRequestConfig = {}) => withAbort<T>(axios.get)(url, config),
+    delete: <T>(url: string, config: ApiRequestConfig = {}) => withAbort<T>(axios.delete)(url, config),
+    post: <T>(url: string, body: unknown, config: ApiRequestConfig = {}) => withAbort<T>(axios.post)(url, body, config),
+    patch: <T>(url: string, body: unknown, config: ApiRequestConfig = {}) => withAbort<T>(axios.patch)(url, body, config),
+    put: <T>(url: string, body: unknown, config: ApiRequestConfig = {}) => withAbort<T>(axios.put)(url, body, config),
   };
 };
 export default api(axiosInstance);
